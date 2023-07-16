@@ -1,9 +1,27 @@
-<div class="card">
-  <!-- Card header -->
-  <div class="card-header">
-    <h3 class="mb-0">プロフィール</h3>
-  </div>
-  <!-- Card body -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mokumoku</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_pack_tag 'application' %>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+
+<body>
+<%= render 'shared/header' %>
+<div class="py-3">
+  <div class="pt-5 pb-5">
+    <div class="container">
+
+<% if current_user == @user %>
+
+<!-- Card body -->
   <div class="card-body">
     <%= form_with model: @user, url: mypage_profile_path do |f|  %>
       <div class="d-lg-flex align-items-center justify-content-between">
@@ -38,6 +56,16 @@
           <%= f.label :name, class: 'form-label' %>
           <%= f.text_field :name, class: 'form-control', placeholder: 'らんてくん' %>
         </div>
+
+        <div class="mb-3">
+          <%= f.label :hobby, class: 'form-label' %>
+          <%= f.text_field :hobby, class: 'form-control', placeholder: '学習' %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :profile, class: 'form-label' %>
+          <%= f.text_area :profile, class: 'form-control', placeholder: 'よろしくお願いします' %>
+        </div>
+
         <div class="col-12">
           <!-- Button -->
           <%= f.submit class: 'btn btn-primary' %>
@@ -46,3 +74,56 @@
     </div>
   </div>
 </div>
+
+<% else %>
+
+
+<div class="card">
+  <!-- Card header -->
+  <div class="card-header">
+    <h3 class="mb-0">プロフィール</h3>
+  </div>
+  <!-- Card body -->
+  <div class="card-body">
+      <div class="d-lg-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center mb-4 mb-lg-0">
+          <%= image_tag @user.decorate.avatar, class: 'avatar-xl rounded-circle' %>
+          <div class="ms-3">
+            <h4 class="mb-3">User avatar</h4>
+            <%= @user.avatar %>
+            <% if current_user.following?(@user) %>
+              <%= link_to "フォローを外す", user_relationships_path(@user.id), method: :delete, class: "btn btn-danger" %>
+            <% else %>
+              <%= link_to "フォローする", user_relationships_path(@user.id), method: :post, class: "btn btn-success" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-5">
+    <div>
+      <h4 class="mb-0">Personal Profile</h4>
+
+      <!-- Profile -->
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <p><%= @user.name %></p>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Hobby</label>
+          <p><%= @user.hobby %></p>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Profile</label>
+          <p><%= @user.profile %></p>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<% end %>
+
+
+<%= render 'shared/footer' %>
