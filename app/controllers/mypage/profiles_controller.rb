@@ -2,12 +2,6 @@
 
 class Mypage::ProfilesController < Mypage::BaseController
 
-  # def show
-  #   @user = current_user
-  #   @user = User.find(params[:id])
-  #   render layout: false
-  # end
-
   def show
     if params[:id].blank? || current_user.id == params[:id].to_i
       @user = current_user
