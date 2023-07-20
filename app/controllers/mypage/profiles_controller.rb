@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class Mypage::ProfilesController < Mypage::BaseController
-
   def show
-    if params[:id].blank? || current_user.id == params[:id].to_i
-      @user = current_user
-    else
-      @user = User.find(params[:id])
-    end
-    render layout: false
+    @user = if params[:id].blank? || current_user.id == params[:id].to_i
+              current_user
+            else
+              User.find(params[:id])
+            end
   end
 
   def edit

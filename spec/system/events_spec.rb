@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Events", type: :system do
+RSpec.describe 'Events', type: :system do
   let(:user)  { create :user }
-  let(:event) { create :event}
+  let(:event) { create :event }
 
   describe 'event関係' do
     context 'index' do

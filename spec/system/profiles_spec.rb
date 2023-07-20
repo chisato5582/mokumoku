@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Profiles", type: :system do
+RSpec.describe 'Profiles', type: :system do
   let(:user)       { create :user, hobby: 'プログラミング', profile: 'プログラミングスクール「RUNTEQ」にて学び...' }
   let(:other_user) { create :user, hobby: '読書', profile: '読書が好きで...' }
   let(:new_user)   { create :user }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Followings", type: :system do
+RSpec.describe 'Followings', type: :system do
   let(:user)           { create :user }
   let(:new_user)       { create :user }
   let(:event)          { create :event }
@@ -62,7 +62,6 @@ RSpec.describe "Followings", type: :system do
       end
 
       it 'ユーザーはイベント主催者をフォローから外すことができる' do
-
         login(new_user)
         visit event_path(event)
         expect(page).to have_content(event.title)
